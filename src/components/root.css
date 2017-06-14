@@ -1,0 +1,20 @@
+:root {
+  --main-bg-color: rgb(0,150,136);
+}
+
+a {
+  cursor: pointer;
+}
+
+.drawer-buffer {
+  display: block;
+  height: 60px;
+  background: var(--main-bg-color);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+@media screen and (min-width: 1024px) {
+  .drawer-buffer {
+    display: none;
+  }
+}
