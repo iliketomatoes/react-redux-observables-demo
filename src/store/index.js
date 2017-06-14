@@ -1,11 +1,44 @@
-/* @flow */
-import { createStore } from 'redux';
+// @flow
+import { createStore, applyMiddleware } from 'redux';
+import { createEpicMiddleware } from 'redux-observable';
 import { rootReducer } from '../reducers';
-import type { Store } from './types';
+import { rootEpic } from '../epics';
+import {
+	initialRates,
+	initialCurrency,
+	initialRateDate,
+	initialLoadState
+} from '../reducers';
+import type { Currency, Rates, RateDate } from '../types';
 
-export const initialState: Store = {
-	visibilityFilter: 'SHOW_ALL',
-	todos: []
+// Hot module reloading
+if (module.hot) {
+  module.hot.accept('../epics', () => {
+    const rootEpic = require('../epics').default;
+    epicMiddleware.replaceEpic(rootEpic);
+  });
+}
+
+export const initialState: {
+	currency: Currency,
+	loadState: boolean,
+	rates: Rates,
+	rateDate: RateDate
+} = {
+	currency: initialCurrency,
+	loadState: initialLoadState,
+	rates: initialRates,
+	rateDate: initialRateDate
 };
 
-export const store = createStore(rootReducer, initialState);
+const epicMiddleware = createEpicMiddleware(rootEpic);
+
+export default function configureStore() {
+  const store = createStore(
+    rootReducer,
+	initialState,
+    applyMiddleware(epicMiddleware)
+  );
+
+  return store;
+}
