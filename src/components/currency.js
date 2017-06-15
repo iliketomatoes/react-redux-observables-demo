@@ -1,33 +1,57 @@
 // @flow
 import React from 'react';
 import type { Rates } from '../types';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import Chip from './chip';
 import './currency.css';
 
-const Currency = (props: {
-	selected: string,
-	symbol: string,
-	rates: Rates
-}) => {
-	const options = props.rates.map(rate =>
-		<option key={rate.id}>
-			{rate.id}
-			{rate.symbol}
-		</option>
-	);
+class Currency extends React.Component {
+	state: {
+		selected: string,
+		symbol: string
+	};
 
-	console.log(options);
+	constructor(props: { selected: string, symbol: string, rates: Rates }) {
+		super(props);
 
-	return (
-		<div className="currency">
-			<span className="currency__symbol mdl-color--teal mdl-color-text--white">
-				{props.symbol}
-			</span>
-			<div className="currency__info">
-				<div className="currency__desc">Current currency</div>
-				<div className="currency__code">{props.selected}</div>
+		this.state = {
+			selected: props.selected,
+			symbol: props.symbol
+		};
+	}
+
+	render() {
+		const items = this.props.rates.map(rate =>
+			<MenuItem
+				key={rate.id}
+				value="{rate.id}"
+				primaryText={`${rate.symbol} ${rate.id}`}
+			/>
+		);
+
+		return (
+			<div className="currency">
+				<Chip icon={this.state.symbol} />
+				<div className="currency__info">
+					<SelectField
+						value={this.state.selected}
+						onChange={() => console.log('changeeeed')}
+						maxHeight={200}
+						floatingLabelText="Current currency"
+						floatingLabelFixed={true}
+					>
+						<MenuItem
+							key={this.state.selected}
+							value={this.state.selected}
+							primaryText={`${this.state.selected}`}
+						/>
+						{items}
+					</SelectField>
+				</div>
 			</div>
-		</div>
-	);
-};
+		);
+	}
+}
 
 export default Currency;

@@ -3,23 +3,6 @@
   display: flex;
 }
 
-.currency__symbol {
-  border-radius: 50%;
-  font-size: 24px;
-  margin-right: 6px;
-  overflow: hidden;
-  padding: 12px;
-}
-
 .currency__info {
   flex: 1;
-}
-
-.currency__desc {
-  color: var(--secondary-color);
-  margin-bottom: 2px;
-}
-
-.currency__code {
-  font-size: 22px;
 }
