@@ -1,10 +1,7 @@
 // @flow
 import { combineReducers } from 'redux';
 import {
-	ADD_TODO,
-	TOGGLE_TODO,
-	SET_VISIBILITY_FILTER,
-	GET_LATEST_RATES,
+	FETCH_RATES,
 	GET_CURRENT_RATES,
 	ON_DATA_RECEIVED,
 	SET_DATE,
@@ -21,50 +18,12 @@ export const initialRateDate: RateDate = {
 	day: 0
 };
 
-function todos(state = [], action: Action<any>) {
-	console.log(action);
-	switch (action.type) {
-		case ADD_TODO:
-			return [
-				...state,
-				{
-					text: action.payload,
-					completed: false
-				}
-			];
-		case TOGGLE_TODO:
-			return state.map((todo, index) => {
-				if (index === action.index) {
-					return Object.assign({}, todo, {
-						completed: !todo.completed
-					});
-				} else {
-					return todo;
-				}
-			});
-		default:
-			return state;
-	}
-}
-
-export function visibilityFilter(
-	state: string = 'SHOW_ALL',
-	action: Action<any>
-) {
-	switch (action.type) {
-		case SET_VISIBILITY_FILTER:
-			return action.filter;
-		default:
-			return state;
-	}
-}
-
 export function loadState(
 	state: boolean = initialLoadState,
 	action: Action<any>
 ): boolean {
 	switch (action.type) {
-		case GET_LATEST_RATES:
+		case FETCH_RATES:
 			return true;
 		case ON_DATA_RECEIVED:
 			return false;
@@ -78,7 +37,7 @@ export function currency(
 	action: Action<Currency>
 ): Currency {
 	switch (action.type) {
-		case GET_LATEST_RATES:
+		case FETCH_RATES:
 			return action.payload;
 		default:
 			return state;

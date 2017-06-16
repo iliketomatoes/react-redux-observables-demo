@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { currencies } from '../currencies';
 import { initialState } from '../store';
-import { getLatestRates, getCurrentRates } from '../actions';
+import { getCurrentRates, fetchRates } from '../actions';
 import Rate from '../components/rate';
-import DisplayedCurrency from '../components/currency';
+import CurrencySelect from '../components/currency-select';
 import type { Currency, Rates, RateDate } from '../types';
 import './home.css';
 
@@ -22,7 +22,8 @@ class Home extends React.Component {
 		loadState: boolean,
 		rates: Rates,
 		rateDate: RateDate,
-		loadCurrencyData: () => void
+		loadCurrencyData: () => void,
+		changeCurrency: (Currency) => void
 	}) {
 		super(props);
 		this.unicodeCurrencySymbol = currencies[props.currency];
@@ -42,10 +43,11 @@ class Home extends React.Component {
 				</header>
 				<div className="mdl-grid">
 					<div className="mdl-cell mdl-cell--12-col">
-						<DisplayedCurrency
+						<CurrencySelect
 							symbol={this.unicodeCurrencySymbol}
 							selected={this.props.currency}
 							rates={this.props.rates}
+							changeCurrency={this.props.changeCurrency}
 						/>
 					</div>
 					<div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
@@ -77,6 +79,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		loadCurrencyData: () => {
 			dispatch(getCurrentRates());
+		},
+		changeCurrency: (curr: Currency) => {
+			dispatch(fetchRates(curr));
 		}
 	};
 };

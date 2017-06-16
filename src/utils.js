@@ -1,9 +1,9 @@
 // @flow
-import type { Currency, Rates, RateDate, Rate } from './types';
+import type { Currency, Rates, Rate } from './types';
 
 export function isCurrencyVisible(curr: Currency, rates: Rates): boolean {
 	const rate = getRateByCurrency(curr, rates);
-	return rate ? rate.visible : true;
+	return rate ? rate.isVisible : true;
 }
 
 export function getRateByCurrency(curr: Currency, rates: Rates): Rate | null {

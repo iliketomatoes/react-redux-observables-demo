@@ -9,7 +9,7 @@ export type Rate = {
 	id: Currency,
 	symbol: string,
 	value: number,
-	visible: boolean
+	isVisible: boolean
 };
 
 export type RateDate = {

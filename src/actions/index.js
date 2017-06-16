@@ -1,9 +1,7 @@
 /* @flow */
 import {
-	ADD_TODO,
-	TOGGLE_TODO,
 	SET_VISIBILITY_FILTER,
-	GET_LATEST_RATES,
+	FETCH_RATES,
 	ON_DATA_RECEIVED,
 	SET_DATE,
 	GET_CURRENT_RATES,
@@ -15,13 +13,6 @@ import type { Currency, Rates, RateDate } from '../types';
 /*
  * action creators
  */
-export function addTodo(text: string): Action<string> {
-	return { type: ADD_TODO, payload: text };
-}
-
-export function toggleTodo(index: number): Action<number> {
-	return { type: TOGGLE_TODO, payload: index };
-}
 
 export function setVisibilityFilter(
 	filter: VisibilityFilter
@@ -29,8 +20,8 @@ export function setVisibilityFilter(
 	return { type: SET_VISIBILITY_FILTER, payload: filter };
 }
 
-export function getLatestRates(curr: Currency): Action<Currency> {
-	return { type: GET_LATEST_RATES, payload: curr };
+export function fetchRates(curr: Currency): Action<Currency> {
+	return { type: FETCH_RATES, payload: curr };
 }
 
 export function getCurrentRates(): Action<null> {
