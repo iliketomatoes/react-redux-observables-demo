@@ -1,0 +1,27 @@
+.chart {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+  height: 700px;
+  position: relative;
+}
+
+.chart__bar {
+  flex: 0 1 auto;
+}
+
+.chart__current-currency {
+  bottom: 104px;
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  border-top: 2px solid red;
+}
+
+.chart__current-currency__name {
+  text-transform: lowercase;
+  position: absolute;
+  right: -45px;
+  top: -20px;
+  color: red;
+}

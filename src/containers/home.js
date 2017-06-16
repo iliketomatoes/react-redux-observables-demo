@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { currencies } from '../currencies';
 import { initialState } from '../store';
 import { getCurrentRates, fetchRates } from '../actions';
-import Rate from '../components/rate';
+import Chart from '../components/chart';
 import CurrencySelect from '../components/currency-select';
 import type { Currency, Rates, RateDate } from '../types';
 import './home.css';
@@ -50,25 +50,8 @@ class Home extends React.Component {
 							changeCurrency={this.props.changeCurrency}
 						/>
 					</div>
-					<div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
-						<ul>
-							{this.props.rates.map(rate =>
-								<li key={rate.id}>
-									<Rate
-										curr={rate.id}
-										val={rate.value}
-										symbol={rate.symbol}
-									/>
-								</li>
-							)}
-						</ul>
-					</div>
-					<div className="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet">
-						4 (6 tablet)
-					</div>
-					<div className="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone">
-						2 (4 phone)
-					</div>
+						<Chart rates={this.props.rates}
+						curr={this.props.currency}/>
 				</div>
 			</div>
 		);
