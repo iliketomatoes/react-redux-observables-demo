@@ -17,3 +17,8 @@ export type RateDate = {
 	month: number,
 	day: number,
 };
+
+export type RatesExtended = {
+	date: RateDate,
+	rates: Rates
+};

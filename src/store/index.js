@@ -23,12 +23,14 @@ export const initialState: {
 	currency: Currency,
 	loadState: boolean,
 	rates: Rates,
-	rateDate: RateDate
+	rateDate: RateDate,
+	latestDateAvailable: RateDate
 } = {
 	currency: initialCurrency,
 	loadState: initialLoadState,
 	rates: initialRates,
-	rateDate: initialRateDate
+	rateDate: initialRateDate,
+	latestDateAvailable: initialRateDate
 };
 
 const epicMiddleware = createEpicMiddleware(rootEpic);

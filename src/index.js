@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {
+	teal500,
+	teal700,
+	purpleA400
+} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Root from './components/root';
 import registerServiceWorker from './registerServiceWorker';
@@ -16,8 +21,10 @@ const store = configureStore();
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: '#009688',
-	accent1Color: '#D500F9'
+    primary1Color: teal500,
+	primary2Color: teal700,
+	accent1Color: purpleA400,
+	pickerHeaderColor: teal500,
   },
   appBar: {
     height: 50,

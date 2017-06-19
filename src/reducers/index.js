@@ -7,7 +7,7 @@ import {
 	SET_DATE,
 	Action
 } from '../actions/types';
-import type { Currency, Rates, RateDate } from '../types';
+import type { Currency, Rates, RateDate, RatesExtended } from '../types';
 
 export const initialCurrency: Currency = 'EUR';
 export const initialLoadState: boolean = false;
@@ -46,14 +46,14 @@ export function currency(
 
 export function rates(
 	state: Rates = initialRates,
-	action: Action<Rates>
+	action: Action<RatesExtended>
 ): Rates {
 	switch (action.type) {
 		case GET_CURRENT_RATES:
 			return state;
 		case ON_DATA_RECEIVED:
 			// console.log(action.payload);
-			return action.payload;
+			return action.payload.rates;
 		default:
 			return state;
 	}
@@ -61,11 +61,32 @@ export function rates(
 
 export function rateDate(
 	state: RateDate = initialRateDate,
-	action: Action<RateDate>
+	action: Action<any>
 ): RateDate {
 	switch (action.type) {
 		case SET_DATE:
-			return Object.assign({}, state);
+			return action.payload;
+		case ON_DATA_RECEIVED:
+			// console.log(action.payload);
+			return action.payload.date;
+		default:
+			return state;
+	}
+}
+
+export function latestDateAvailable(
+	state: RateDate = initialRateDate,
+	action: Action<RatesExtended>
+): RateDate {
+	switch (action.type) {
+		case ON_DATA_RECEIVED:
+
+			// On initial load, we get the latest available rate exchange date
+			if (state.year === initialRateDate.year) {
+				return action.payload.date;
+			} else {
+				return state;
+			}
 		default:
 			return state;
 	}
@@ -75,5 +96,6 @@ export const rootReducer = combineReducers({
 	currency,
 	loadState,
 	rates,
-	rateDate
+	rateDate,
+	latestDateAvailable
 });
