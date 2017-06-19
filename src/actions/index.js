@@ -8,7 +8,7 @@ import {
 	Action
 } from './types';
 import type { VisibilityFilter } from './types';
-import type { Currency, Rates, RateDate, RatesExtended } from '../types';
+import type { Currency, Rates, RateDate, RatesRaw } from '../types';
 
 /*
  * action creators
@@ -32,6 +32,6 @@ export function setDate(date: RateDate): Action<RateDate> {
 	return { type: SET_DATE, payload: date };
 }
 
-export function onRatesDataReceived(ratesExt: RatesExtended): Action<RatesExtended> {
-	return { type: ON_DATA_RECEIVED, payload: ratesExt };
+export function onRatesDataReceived(rates: RatesRaw): Action<RatesRaw> {
+	return { type: ON_DATA_RECEIVED, payload: rates };
 }

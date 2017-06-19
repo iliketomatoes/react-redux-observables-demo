@@ -1,16 +1,26 @@
 // @flow
+import { currencies } from './currencies';
 import type { Currency, Rates, Rate, RateDate } from './types';
 
-export function isCurrencyVisible(curr: Currency, rates: Rates): boolean {
-	const rate = getRateByCurrency(curr, rates);
-	return rate ? rate.isVisible : true;
-}
+export function mergeRatesWithState(r: Array<[Currency, number]>, oldState: Rates): Rates {
 
-export function getRateByCurrency(curr: Currency, rates: Rates): Rate | null {
-	const rate = rates.filter(currRate => {
-		return currRate.id === curr;
+	const newRates = r.map((rate) => {
+
+		const id = rate[0];
+		const value = rate[1];
+
+		const oldElement = oldState.find(oldRate => oldRate ===  id);
+
+		const currRate: Rate = {
+			id,
+			value,
+			symbol: currencies[id],
+			isVisible: oldElement? oldElement.isVisible : true
+		};
+		return currRate;
 	});
-	return rate.length === 0 ? null : rate[0];
+
+	return newRates;
 }
 
 export function getRateDateFromIsoString(isoDate: string): RateDate {

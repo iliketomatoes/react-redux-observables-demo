@@ -7,7 +7,9 @@ import {
 	SET_DATE,
 	Action
 } from '../actions/types';
-import type { Currency, Rates, RateDate, RatesExtended } from '../types';
+import { currencies } from '../currencies';
+import { getRateDateFromIsoString, mergeRatesWithState } from '../utils';
+import type { Currency, Rates, RateDate, RatesRaw, Rate } from '../types';
 
 export const initialCurrency: Currency = 'EUR';
 export const initialLoadState: boolean = false;
@@ -46,14 +48,19 @@ export function currency(
 
 export function rates(
 	state: Rates = initialRates,
-	action: Action<RatesExtended>
+	action: Action<RatesRaw>
 ): Rates {
 	switch (action.type) {
 		case GET_CURRENT_RATES:
 			return state;
 		case ON_DATA_RECEIVED:
-			// console.log(action.payload);
-			return action.payload.rates;
+			console.log(action);
+
+			// Turn raw rates object into an array
+			const rawRatesArr: Array<[Currency, any]> = Object.entries(action.payload.rates);
+
+			return mergeRatesWithState(rawRatesArr, state);
+
 		default:
 			return state;
 	}
@@ -61,14 +68,12 @@ export function rates(
 
 export function rateDate(
 	state: RateDate = initialRateDate,
-	action: Action<any>
+	action: Action<RatesRaw>
 ): RateDate {
 	switch (action.type) {
 		case SET_DATE:
-			return action.payload;
 		case ON_DATA_RECEIVED:
-			// console.log(action.payload);
-			return action.payload.date;
+			return getRateDateFromIsoString(action.payload.date);
 		default:
 			return state;
 	}
@@ -76,14 +81,14 @@ export function rateDate(
 
 export function latestDateAvailable(
 	state: RateDate = initialRateDate,
-	action: Action<RatesExtended>
+	action: Action<RatesRaw>
 ): RateDate {
 	switch (action.type) {
 		case ON_DATA_RECEIVED:
 
 			// On initial load, we get the latest available rate exchange date
 			if (state.year === initialRateDate.year) {
-				return action.payload.date;
+				return getRateDateFromIsoString(action.payload.date);
 			} else {
 				return state;
 			}

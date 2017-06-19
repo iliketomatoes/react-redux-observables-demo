@@ -18,7 +18,8 @@ export type RateDate = {
 	day: number,
 };
 
-export type RatesExtended = {
-	date: RateDate,
-	rates: Rates
+export type RatesRaw = {
+	base: Currency,
+	date: string,
+	rates: { [Currency]: number  }
 };

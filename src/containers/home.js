@@ -8,6 +8,7 @@ import { getCurrentRates, fetchRates, setDate } from '../actions';
 import Chart from '../components/chart';
 import DateSelect from '../components/date-select';
 import CurrencySelect from '../components/currency-select';
+import VisibleCurrencies from '../components/visible-currencies';
 import type { Currency, Rates, RateDate } from '../types';
 import './home.css';
 
@@ -26,7 +27,7 @@ class Home extends React.Component {
 		latestDateAvailable: RateDate,
 		loadCurrencyData: () => void,
 		changeCurrency: Currency => void,
-		setDate: RateDate => void
+		setDate: ({ date: string }) => void
 	}) {
 		super(props);
 		this.unicodeCurrencySymbol = currencies[props.currency];
@@ -59,9 +60,9 @@ class Home extends React.Component {
 							maxDate={this.props.latestDateAvailable}
 							onDateChange={this.props.setDate}
 						/>
-						</div>
-						<div className="mdl-cell mdl-cell--4-col mdl-cell--6-col-phone">
-							Visible currencies
+					</div>
+					<div className="mdl-cell mdl-cell--4-col mdl-cell--6-col-phone">
+						<VisibleCurrencies rates={this.props.rates} />
 					</div>
 					<Chart
 						rates={this.props.rates}

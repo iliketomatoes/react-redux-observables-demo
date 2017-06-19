@@ -6,13 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { FETCH_RATES, GET_CURRENT_RATES, SET_DATE } from '../actions/types';
 import { onRatesDataReceived, fetchRates } from '../actions';
-import { currencies } from '../currencies';
-import {
-	isCurrencyVisible,
-	getRateDateFromIsoString,
-	getIsoStringFromRateDate
-} from '../utils';
-import type { Currency, Rates, Rate, RatesExtended } from '../types';
+import { getRateDateFromIsoString, getIsoStringFromRateDate } from '../utils';
+import type { Currency, Rates, Rate, RatesRaw } from '../types';
 
 // epic
 const fetchRateDataEpic = (action$, store) =>
@@ -26,29 +21,8 @@ const fetchRateDataEpic = (action$, store) =>
 
 		return ajax
 			.getJSON(`http://api.fixer.io/${date}?base=${action.payload}`)
-			.map(response => {
-				const date = getRateDateFromIsoString(response.date);
-
-				// Get old rates to compare visibility property with
-				const oldRates = store.getState().rates;
-
-				const newRates: Rates = Object.entries(
-					response.rates
-				).map((rate: [Currency, number]) => {
-					const currRate: Rate = {
-						id: rate[0],
-						value: rate[1],
-						symbol: currencies[rate[0]],
-						isVisible: isCurrencyVisible(rate[0], oldRates)
-					};
-					return currRate;
-				});
-				return onRatesDataReceived(
-					({
-						date: date,
-						rates: newRates
-					}: RatesExtended)
-				);
+			.map((response: RatesRaw) => {
+				return onRatesDataReceived(response);
 			})
 			.catch(err => {
 

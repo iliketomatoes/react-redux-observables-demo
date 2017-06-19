@@ -12,7 +12,7 @@ class DateSelect extends React.Component {
 	constructor(props: {
 		currentDate: RateDate,
 		maxDate: RateDate,
-		onDateChange: (d: RateDate) => void
+		onDateChange: (d: { date: string }) => void
 	}) {
 		super(props);
 	}
@@ -21,11 +21,9 @@ class DateSelect extends React.Component {
 		return new Date(rateDate.year, rateDate.month - 1, rateDate.day);
 	}
 
-	handleChange(ev: any, date: any) {
+	handleChange(ev: any, dateObj: any) {
 		this.props.onDateChange({
-			year: date.getFullYear(),
-			month: date.getMonth() + 1,
-			day: date.getDate()
+			date: dateObj.toISOString().split('T')[0]
 		});
 	}
 
@@ -45,7 +43,8 @@ class DateSelect extends React.Component {
 							maxDate={maxDate}
 							formatDate={date => date.toDateString()}
 							value={currentDate}
-							onChange={(ev: any, date: any) => this.handleChange(ev, date)}
+							onChange={(ev: any, date: any) =>
+								this.handleChange(ev, date)}
 						/>
 					: ''}
 			</div>
