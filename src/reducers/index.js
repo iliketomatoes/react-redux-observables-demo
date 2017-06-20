@@ -1,24 +1,17 @@
 // @flow
 import { combineReducers } from 'redux';
 import {
+	TOGGLE_VISIBILITY,
 	FETCH_RATES,
 	GET_CURRENT_RATES,
 	ON_DATA_RECEIVED,
-	SET_DATE,
-	Action
-} from '../actions/types';
+	SET_INITIAL_DATE,
+	SET_DATE
+} from '../actions';
+import { initialRates, initialRateDate, initialLoadState, initialCurrency } from '../store/initial-state';
 import { currencies } from '../currencies';
-import { getRateDateFromIsoString, mergeRatesWithState } from '../utils';
-import type { Currency, Rates, RateDate, RatesRaw, Rate } from '../types';
-
-export const initialCurrency: Currency = 'EUR';
-export const initialLoadState: boolean = false;
-export const initialRates: Rates = [];
-export const initialRateDate: RateDate = {
-	year: 0,
-	month: 0,
-	day: 0
-};
+import { getRateDateFromIsoString } from '../utils';
+import type { Currency, Rates, RateDate, Rate, Action } from '../types';
 
 export function loadState(
 	state: boolean = initialLoadState,
@@ -48,18 +41,25 @@ export function currency(
 
 export function rates(
 	state: Rates = initialRates,
-	action: Action<RatesRaw>
+	action: Action<Rates>
 ): Rates {
 	switch (action.type) {
 		case GET_CURRENT_RATES:
 			return state;
 		case ON_DATA_RECEIVED:
-			console.log(action);
-
-			// Turn raw rates object into an array
-			const rawRatesArr: Array<[Currency, any]> = Object.entries(action.payload.rates);
-
-			return mergeRatesWithState(rawRatesArr, state);
+			const rates = action.payload.map(rate => {
+				const oldRate = state.find(r => r.id === rate.id);
+				return {...rate, isVisible: oldRate? oldRate.isVisible : true};
+			});
+			return rates;
+		case TOGGLE_VISIBILITY:
+			// TODO
+			/*return state.map(
+				rate =>
+					rate.id === action.payload.id
+						? { ...rate, rate: action.payload.isVisible }
+						: rate
+			);*/
 
 		default:
 			return state;
@@ -68,12 +68,12 @@ export function rates(
 
 export function rateDate(
 	state: RateDate = initialRateDate,
-	action: Action<RatesRaw>
+	action: Action<RateDate>
 ): RateDate {
 	switch (action.type) {
 		case SET_DATE:
-		case ON_DATA_RECEIVED:
-			return getRateDateFromIsoString(action.payload.date);
+		case SET_INITIAL_DATE:
+			return action.payload;
 		default:
 			return state;
 	}
@@ -81,17 +81,11 @@ export function rateDate(
 
 export function latestDateAvailable(
 	state: RateDate = initialRateDate,
-	action: Action<RatesRaw>
+	action: Action<RateDate>
 ): RateDate {
 	switch (action.type) {
-		case ON_DATA_RECEIVED:
-
-			// On initial load, we get the latest available rate exchange date
-			if (state.year === initialRateDate.year) {
-				return getRateDateFromIsoString(action.payload.date);
-			} else {
-				return state;
-			}
+		case SET_INITIAL_DATE:
+			return action.payload;
 		default:
 			return state;
 	}

@@ -8,7 +8,7 @@ import {
 	initialCurrency,
 	initialRateDate,
 	initialLoadState
-} from '../reducers';
+} from './initial-state';
 import type { Currency, Rates, RateDate } from '../types';
 
 // Hot module reloading

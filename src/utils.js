@@ -2,27 +2,6 @@
 import { currencies } from './currencies';
 import type { Currency, Rates, Rate, RateDate } from './types';
 
-export function mergeRatesWithState(r: Array<[Currency, number]>, oldState: Rates): Rates {
-
-	const newRates = r.map((rate) => {
-
-		const id = rate[0];
-		const value = rate[1];
-
-		const oldElement = oldState.find(oldRate => oldRate ===  id);
-
-		const currRate: Rate = {
-			id,
-			value,
-			symbol: currencies[id],
-			isVisible: oldElement? oldElement.isVisible : true
-		};
-		return currRate;
-	});
-
-	return newRates;
-}
-
 export function getRateDateFromIsoString(isoDate: string): RateDate {
 	const explodedDate = isoDate.split('-');
 

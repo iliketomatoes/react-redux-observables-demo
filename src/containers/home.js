@@ -27,7 +27,7 @@ class Home extends React.Component {
 		latestDateAvailable: RateDate,
 		loadCurrencyData: () => void,
 		changeCurrency: Currency => void,
-		setDate: ({ date: string }) => void
+		setDate: RateDate => void
 	}) {
 		super(props);
 		this.unicodeCurrencySymbol = currencies[props.currency];

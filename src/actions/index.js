@@ -1,24 +1,19 @@
 /* @flow */
-import {
-	SET_VISIBILITY_FILTER,
-	FETCH_RATES,
-	ON_DATA_RECEIVED,
-	SET_DATE,
-	GET_CURRENT_RATES,
-	Action
-} from './types';
-import type { VisibilityFilter } from './types';
-import type { Currency, Rates, RateDate, RatesRaw } from '../types';
+import type { Currency, Rates, RateDate, Action } from '../types';
+
+/*
+ * action types
+ */
+export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
+export const FETCH_RATES = 'FETCH_RATES';
+export const ON_DATA_RECEIVED = 'ON_DATA_RECEIVED';
+export const SET_DATE = 'SET_DATE';
+export const SET_INITIAL_DATE = 'SET_INITIAL_DATE';
+export const GET_CURRENT_RATES = 'GET_CURRENT_RATES';
 
 /*
  * action creators
  */
-
-export function setVisibilityFilter(
-	filter: VisibilityFilter
-): Action<VisibilityFilter> {
-	return { type: SET_VISIBILITY_FILTER, payload: filter };
-}
 
 export function fetchRates(curr: Currency): Action<Currency> {
 	return { type: FETCH_RATES, payload: curr };
@@ -32,6 +27,10 @@ export function setDate(date: RateDate): Action<RateDate> {
 	return { type: SET_DATE, payload: date };
 }
 
-export function onRatesDataReceived(rates: RatesRaw): Action<RatesRaw> {
+export function setInitialDate(date: RateDate): Action<RateDate> {
+	return { type: SET_INITIAL_DATE, payload: date };
+}
+
+export function onRatesDataReceived(rates: Rates): Action<Rates> {
 	return { type: ON_DATA_RECEIVED, payload: rates };
 }

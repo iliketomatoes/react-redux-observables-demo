@@ -7,9 +7,8 @@ export type Rates = Array<Rate>;
 
 export type Rate = {
 	id: Currency,
-	symbol: string,
 	value: number,
-	isVisible: boolean
+	isVisible?: boolean
 };
 
 export type RateDate = {
@@ -18,8 +17,10 @@ export type RateDate = {
 	day: number,
 };
 
-export type RatesRaw = {
-	base: Currency,
-	date: string,
-	rates: { [Currency]: number  }
+/*
+ * Interface to be used for any Action
+ */
+export interface Action<T> {
+    type: string;
+	payload: T;
 };

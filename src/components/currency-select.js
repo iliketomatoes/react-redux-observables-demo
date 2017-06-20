@@ -31,7 +31,7 @@ class CurrencySelect extends React.Component {
 			<MenuItem
 				key={index + 1}
 				value={rate.id}
-				primaryText={`${rate.symbol} ${rate.id}`}
+				primaryText={`${currencies[rate.id]} ${rate.id}`}
 			/>
 		);
 

@@ -3,11 +3,15 @@
 }
 
 .bar__column {
-  background: #80D8FF;
+    --border: 1px solid #80D8FF;
+  background: #c2e6ed;
   transition: all;
   transition-duration: 300ms;
   height: 0;
   opacity: 0;
+  border-top: var(--border);
+  border-right: var(--border);
+  border-left: var(--border);
 }
 
 .bar__desc {

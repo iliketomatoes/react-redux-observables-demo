@@ -20,7 +20,7 @@ class Chart extends React.Component {
 			<div className="chart">
 				<div className="chart__current-currency">
 				<div className="chart__current-currency__name">
-				1 {this.props.curr} {currencies[this.props.curr]} 
+				1 {this.props.curr} {currencies[this.props.curr]}
 				</div>
 				</div>
 					{this.props.rates.map((rate, index) =>
@@ -28,7 +28,7 @@ class Chart extends React.Component {
 							<Bar
 								curr={rate.id}
 								val={rate.value}
-								symbol={rate.symbol}
+								symbol={currencies[rate.id]}
 								isVisible={rate.isVisible}
 								barIndex={index}
 								height={this.getNormalizedHeight(rate.value)}

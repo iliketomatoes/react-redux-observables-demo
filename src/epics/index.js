@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { FETCH_RATES, GET_CURRENT_RATES, SET_DATE } from '../actions/types';
-import { onRatesDataReceived, fetchRates } from '../actions';
+import 'rxjs/add/observable/of';
+import { FETCH_RATES, GET_CURRENT_RATES, SET_DATE } from '../actions';
+import { onRatesDataReceived, fetchRates, setInitialDate } from '../actions';
 import { getRateDateFromIsoString, getIsoStringFromRateDate } from '../utils';
-import type { Currency, Rates, Rate, RatesRaw } from '../types';
+import type { Currency, Rates, Rate } from '../types';
 
 // epic
 const fetchRateDataEpic = (action$, store) =>
@@ -21,14 +22,35 @@ const fetchRateDataEpic = (action$, store) =>
 
 		return ajax
 			.getJSON(`http://api.fixer.io/${date}?base=${action.payload}`)
-			.map((response: RatesRaw) => {
-				return onRatesDataReceived(response);
-			})
-			.catch(err => {
+			.mergeMap(
+				(response: {
+					base: Currency,
+					date: string,
+					rates: { [Currency]: number }
+				}) => {
 
+					// Turn raw rates object into an array
+					const rates: Array<Rates> = Object.entries(response.rates)
+						.map(rate => {
+							return {id: rate[0], value: rate[1] }
+						});
+
+					if (state.rateDate.year === 0) {
+						const date = getRateDateFromIsoString(response.date);
+
+						return Observable.merge(
+							Observable.of(onRatesDataReceived(rates)),
+							Observable.of(setInitialDate(date))
+						);
+					} else {
+						return Observable.of(onRatesDataReceived(rates));
+					}
+				}
+			)
+			.catch(err => {
 				// TODO
 				console.log(err);
-				return Observable.of({ type: 'ERROR', payload: err});
+				return Observable.of({ type: 'ERROR', payload: err });
 			});
 	});
 
