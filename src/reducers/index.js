@@ -8,7 +8,12 @@ import {
 	SET_INITIAL_DATE,
 	SET_DATE
 } from '../actions';
-import { initialRates, initialRateDate, initialLoadState, initialCurrency } from '../store/initial-state';
+import {
+	initialRates,
+	initialRateDate,
+	initialLoadState,
+	initialCurrency
+} from '../store/initial-state';
 import { currencies } from '../currencies';
 import { getRateDateFromIsoString } from '../utils';
 import type { Currency, Rates, RateDate, Rate, Action } from '../types';
@@ -49,18 +54,21 @@ export function rates(
 		case ON_DATA_RECEIVED:
 			const rates = action.payload.map(rate => {
 				const oldRate = state.find(r => r.id === rate.id);
-				return {...rate, isVisible: oldRate? oldRate.isVisible : true};
+				return {
+					...rate,
+					isVisible: oldRate ? oldRate.isVisible : true
+				};
 			});
 			return rates;
 		case TOGGLE_VISIBILITY:
-			// TODO
-			/*return state.map(
-				rate =>
-					rate.id === action.payload.id
-						? { ...rate, rate: action.payload.isVisible }
-						: rate
-			);*/
+			const targetRate = action.payload[0];
 
+			return state.map(
+				rate =>
+					rate.id === targetRate.id
+						? { ...rate, isVisible: !targetRate.isVisible }
+						: rate
+			);
 		default:
 			return state;
 	}

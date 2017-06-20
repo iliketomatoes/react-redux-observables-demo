@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { currencies } from '../currencies';
 import { initialState } from '../store';
-import { getCurrentRates, fetchRates, setDate } from '../actions';
+import { getCurrentRates, fetchRates, setDate, toggleVisibility } from '../actions';
 import Chart from '../components/chart';
 import DateSelect from '../components/date-select';
 import CurrencySelect from '../components/currency-select';
@@ -25,6 +25,7 @@ class Home extends React.Component {
 		rates: Rates,
 		rateDate: RateDate,
 		latestDateAvailable: RateDate,
+		toggleVisibility: Rates => void,
 		loadCurrencyData: () => void,
 		changeCurrency: Currency => void,
 		setDate: RateDate => void
@@ -62,7 +63,7 @@ class Home extends React.Component {
 						/>
 					</div>
 					<div className="mdl-cell mdl-cell--4-col mdl-cell--6-col-phone">
-						<VisibleCurrencies rates={this.props.rates} />
+						<VisibleCurrencies toggleVisibility={this.props.toggleVisibility} rates={this.props.rates} />
 					</div>
 					<Chart
 						rates={this.props.rates}
@@ -84,6 +85,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		setDate: (d: RateDate) => {
 			dispatch(setDate(d));
+		},
+		toggleVisibility: (rates: Rates) => {
+			dispatch(toggleVisibility(rates));
 		}
 	};
 };

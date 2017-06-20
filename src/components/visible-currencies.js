@@ -27,7 +27,7 @@ class VisibleCurrencies extends React.Component {
 		open: false
 	};
 
-	constructor(props: { rates: Rates }) {
+	constructor(props: { rates: Rates, toggleVisibility: Rates => void }) {
 		super(props);
 	}
 
@@ -39,9 +39,9 @@ class VisibleCurrencies extends React.Component {
 		this.setState({ open: false });
 	};
 
-	toggleHandler(rateID: Currency, isChecked: boolean) {
-		console.log(rateID);
-		console.log(isChecked);
+	toggleHandler(rateID: Currency) {
+		const rate = this.props.rates.filter(r => r.id === rateID);
+		this.props.toggleVisibility(rate);
 	}
 
 	render() {
@@ -61,7 +61,8 @@ class VisibleCurrencies extends React.Component {
 					uncheckedIcon={<VisibilityOff />}
 					label={rate.id}
 					style={styles.checkbox}
-					onCheck={(ev, isChecked) => this.toggleHandler(rate.id, isChecked)}
+					defaultChecked={rate.isVisible}
+					onCheck={(ev, isChecked) => this.toggleHandler(rate.id)}
 				/>
 			);
 		});

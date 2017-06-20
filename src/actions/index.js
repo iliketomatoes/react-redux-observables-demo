@@ -14,7 +14,6 @@ export const GET_CURRENT_RATES = 'GET_CURRENT_RATES';
 /*
  * action creators
  */
-
 export function fetchRates(curr: Currency): Action<Currency> {
 	return { type: FETCH_RATES, payload: curr };
 }
@@ -29,6 +28,10 @@ export function setDate(date: RateDate): Action<RateDate> {
 
 export function setInitialDate(date: RateDate): Action<RateDate> {
 	return { type: SET_INITIAL_DATE, payload: date };
+}
+
+export function toggleVisibility(rates: Rates): Action<Rates> {
+	return { type: TOGGLE_VISIBILITY, payload: rates };
 }
 
 export function onRatesDataReceived(rates: Rates): Action<Rates> {

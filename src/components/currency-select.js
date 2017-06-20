@@ -43,7 +43,7 @@ class CurrencySelect extends React.Component {
 						value={this.props.selected}
 						onChange={(event: any, key: number, payload: Currency) => this.onChangeSelect(payload)}
 						maxHeight={200}
-						floatingLabelText="Current currency"
+						floatingLabelText="Current base"
 						floatingLabelFixed={true}
 					>
 						<MenuItem
