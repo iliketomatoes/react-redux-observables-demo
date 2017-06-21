@@ -46,6 +46,5 @@ export function setError(error: Error): Action<Error> {
 
 // Action that follows an error, since it is complicated to handle different data set
 export function reset(): Action<null> {
-	console.log('preso resssseett');
 	return { type: RESET, payload: null }
 };

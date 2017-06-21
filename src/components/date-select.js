@@ -20,7 +20,7 @@ class DateSelect extends React.Component {
 		this.props.onDateChange({
 			year: dateObj.getFullYear(),
 			month: dateObj.getMonth() + 1,
-			day: dateObj.getDay()
+			day: dateObj.getDate()
 		});
 	}
 
