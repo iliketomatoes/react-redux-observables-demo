@@ -3,7 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { initialState } from '../store';
-import { getCurrentRates, fetchRates, setDate, toggleVisibility } from '../actions';
+import {
+	getCurrentRates,
+	fetchRates,
+	setDate,
+	toggleVisibility
+} from '../actions';
 import Chart from '../components/chart';
 import DateSelect from '../components/date-select';
 import CurrencySelect from '../components/currency-select';
@@ -12,7 +17,6 @@ import type { Currency, Rates, RateDate } from '../types';
 import './home.css';
 
 class Home extends React.Component {
-
 	constructor(props: {
 		history: any,
 		match: any,
@@ -37,29 +41,29 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<header className="mdl-grid">
-					<h1 className="mdl-cell mdl-cell--12-col">
-						Welcome to React prototype app
-					</h1>
-				</header>
-				<div className="mdl-grid">
-					<div className="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">
+				<div className="grid">
+					<div>
 						<CurrencySelect
 							selected={this.props.currency}
 							rates={this.props.rates}
 							changeCurrency={this.props.changeCurrency}
 						/>
 					</div>
-					<div className="mdl-cell mdl-cell--4-col mdl-cell--6-col-phone">
+					<div>
 						<DateSelect
 							currentDate={this.props.rateDate}
 							maxDate={this.props.latestDateAvailable}
 							onDateChange={this.props.setDate}
 						/>
 					</div>
-					<div className="mdl-cell mdl-cell--4-col mdl-cell--6-col-phone">
-						<VisibleCurrencies toggleVisibility={this.props.toggleVisibility} rates={this.props.rates} />
+					<div>
+						<VisibleCurrencies
+							toggleVisibility={this.props.toggleVisibility}
+							rates={this.props.rates}
+						/>
 					</div>
+				</div>
+				<div className="chart-container">
 					<Chart
 						rates={this.props.rates}
 						curr={this.props.currency}

@@ -78,7 +78,7 @@ class VisibleCurrencies extends React.Component {
 					<span>{visibleRates}</span>
 					<IconButton onTouchTap={this.handleOpen}>
 						<ActionSettings
-							color={purpleA400}
+							color={'#757575'}
 							hoverColor={purpleA500}
 						/>
 					</IconButton>

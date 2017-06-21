@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import Topic from './topic';
 import Topics from '../containers/topics';
 import Home from '../containers/home';
@@ -9,8 +12,16 @@ import ErrorDialog from '../containers/error-dialog';
 import './root.css';
 
 class RootComponent extends React.Component {
+	state: {
+		isDrawerOpen: boolean
+	};
+
 	constructor(props: { appName: string }) {
 		super(props);
+
+		this.state = {
+			isDrawerOpen: false
+		};
 	}
 
 	closeMenu() {
@@ -20,66 +31,53 @@ class RootComponent extends React.Component {
 		if (targetElement) targetElement.click();
 	}
 
+	openMenu() {
+		this.setState({ isDrawerOpen: true });
+	}
+
+	closeMenu() {
+		this.setState({ isDrawerOpen: false });
+	}
+
 	render() {
 		return (
 			<Router>
 				<div className="mdl-layout mdl-js-layout mdl-layout--no-desktop-drawer-button">
-					<header className="mdl-layout__header">
-						<div className="mdl-layout-icon" />
-						<div className="mdl-layout__header-row">
-							<span className="mdl-layout__title">
-								{this.props.appName}
-							</span>
-							<div className="mdl-layout-spacer" />
-							<nav className="mdl-navigation">
-								<Link className="mdl-navigation__link" to="/">
-									Home
-								</Link>
-								<Link
-									className="mdl-navigation__link"
-									to="/about"
-								>
-									About
-								</Link>
-								<Link
-									className="mdl-navigation__link"
-									to="/topics"
-								>
-									Topics
-								</Link>
-							</nav>
-						</div>
-					</header>
-					<div className="drawer-buffer" />
-					<div className="mdl-layout__drawer">
-						<span className="mdl-layout__title">
-							{this.props.appName}
-						</span>
-						<nav className="mdl-navigation">
+					<AppBar
+						title={this.props.appName}
+						iconClassNameRight="muidocs-icon-navigation-expand-more"
+						onLeftIconButtonTouchTap={ev => this.openMenu()}
+					/>
+					<Drawer docked={false} open={this.state.isDrawerOpen} onRequestChange={(open) => this.closeMenu()}>
+						<MenuItem>
 							<Link
-								className="mdl-navigation__link"
+								className="navigation__link"
 								to="/"
 								onClick={() => this.closeMenu()}
 							>
 								Home
 							</Link>
+						</MenuItem>
+						<MenuItem>
 							<Link
-								className="mdl-navigation__link"
+								className="navigation__link"
 								to="/about"
 								onClick={() => this.closeMenu()}
 							>
 								About
 							</Link>
+						</MenuItem>
+						<MenuItem>
 							<Link
-								className="mdl-navigation__link"
+								className="navigation__link"
 								to="/topics"
 								onClick={() => this.closeMenu()}
 							>
 								Topics
 							</Link>
-						</nav>
-					</div>
-					<main className="mdl-layout__content">
+						</MenuItem>
+					</Drawer>
+					<main>
 						<Route exact path="/" component={Home} />
 						<Route path="/about" component={About} />
 						<Route path="/topics" component={Topics} />

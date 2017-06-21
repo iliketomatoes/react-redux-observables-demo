@@ -2,16 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-	teal500,
-	teal700,
-	purpleA400
-} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Root from './components/root';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import {
+	teal500,
+	teal700,
+	purpleA400
+} from 'material-ui/styles/colors';
+import './normalize.css';
+import './typography.css';
+import './grid.css';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
