@@ -1,7 +1,7 @@
 import React from 'react';
 import Bar from '../components/bar';
 import { currencies } from '../currencies';
-import type { Currency, Rates, RateDate } from '../types';
+import type { Currency, Rates } from '../types';
 import './chart.css';
 
 class Chart extends React.Component {

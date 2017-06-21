@@ -6,17 +6,18 @@ import {
 	GET_CURRENT_RATES,
 	ON_DATA_RECEIVED,
 	SET_INITIAL_DATE,
-	SET_DATE
+	SET_DATE,
+	RESET,
+	ERROR
 } from '../actions';
 import {
 	initialRates,
 	initialRateDate,
 	initialLoadState,
-	initialCurrency
+	initialCurrency,
+	initialError
 } from '../store/initial-state';
-import { currencies } from '../currencies';
-import { getRateDateFromIsoString } from '../utils';
-import type { Currency, Rates, RateDate, Rate, Action } from '../types';
+import type { Currency, Rates, RateDate, Action, Error } from '../types';
 
 export function loadState(
 	state: boolean = initialLoadState,
@@ -37,6 +38,8 @@ export function currency(
 	action: Action<Currency>
 ): Currency {
 	switch (action.type) {
+		case RESET:
+			return initialCurrency;
 		case FETCH_RATES:
 			return action.payload;
 		default:
@@ -79,6 +82,8 @@ export function rateDate(
 	action: Action<RateDate>
 ): RateDate {
 	switch (action.type) {
+		case RESET:
+			return Object.assign({},initialRateDate);
 		case SET_DATE:
 		case SET_INITIAL_DATE:
 			return action.payload;
@@ -92,7 +97,21 @@ export function latestDateAvailable(
 	action: Action<RateDate>
 ): RateDate {
 	switch (action.type) {
+		case RESET:
+			return Object.assign({},initialRateDate);
 		case SET_INITIAL_DATE:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+export function showHideError(
+	state: Error = initialError,
+	action: Action<Error>
+): Error {
+	switch (action.type) {
+		case ERROR:
 			return action.payload;
 		default:
 			return state;
@@ -104,5 +123,6 @@ export const rootReducer = combineReducers({
 	loadState,
 	rates,
 	rateDate,
-	latestDateAvailable
+	latestDateAvailable,
+	error: showHideError
 });

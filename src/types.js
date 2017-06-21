@@ -17,6 +17,11 @@ export type RateDate = {
 	day: number,
 };
 
+export type Error = {
+	message: string,
+	status: number
+};
+
 /*
  * Interface to be used for any Action
  */

@@ -5,6 +5,7 @@ import Topic from './topic';
 import Topics from '../containers/topics';
 import Home from '../containers/home';
 import About from '../containers/about';
+import ErrorDialog from '../containers/error-dialog';
 import './root.css';
 
 class RootComponent extends React.Component {
@@ -82,6 +83,7 @@ class RootComponent extends React.Component {
 						<Route exact path="/" component={Home} />
 						<Route path="/about" component={About} />
 						<Route path="/topics" component={Topics} />
+						<ErrorDialog />
 					</main>
 				</div>
 			</Router>

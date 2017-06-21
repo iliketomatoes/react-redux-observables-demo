@@ -1,6 +1,5 @@
 // @flow
-import { currencies } from './currencies';
-import type { Currency, Rates, Rate, RateDate } from './types';
+import type { RateDate } from './types';
 
 export function getRateDateFromIsoString(isoDate: string): RateDate {
 	const explodedDate = isoDate.split('-');

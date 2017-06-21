@@ -7,9 +7,10 @@ import {
 	initialRates,
 	initialCurrency,
 	initialRateDate,
-	initialLoadState
+	initialLoadState,
+	initialError
 } from './initial-state';
-import type { Currency, Rates, RateDate } from '../types';
+import type { Currency, Rates, RateDate, Error } from '../types';
 
 // Hot module reloading
 if (module.hot) {
@@ -24,17 +25,21 @@ export const initialState: {
 	loadState: boolean,
 	rates: Rates,
 	rateDate: RateDate,
-	latestDateAvailable: RateDate
+	latestDateAvailable: RateDate,
+	error: Error
 } = {
 	currency: initialCurrency,
 	loadState: initialLoadState,
 	rates: initialRates,
 	rateDate: initialRateDate,
-	latestDateAvailable: initialRateDate
+	latestDateAvailable: initialRateDate,
+	error: initialError
 };
 
+// Connect the middleware
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
+// Store factory function
 export default function configureStore() {
   const store = createStore(
     rootReducer,

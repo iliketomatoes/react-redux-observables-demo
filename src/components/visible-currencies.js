@@ -6,7 +6,6 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 import Checkbox from 'material-ui/Checkbox';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import './visible-currencies.css';

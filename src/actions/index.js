@@ -1,5 +1,5 @@
 /* @flow */
-import type { Currency, Rates, RateDate, Action } from '../types';
+import type { Currency, Rates, RateDate, Action, Error } from '../types';
 
 /*
  * action types
@@ -10,6 +10,8 @@ export const ON_DATA_RECEIVED = 'ON_DATA_RECEIVED';
 export const SET_DATE = 'SET_DATE';
 export const SET_INITIAL_DATE = 'SET_INITIAL_DATE';
 export const GET_CURRENT_RATES = 'GET_CURRENT_RATES';
+export const ERROR = 'ERROR';
+export const RESET = 'RESET';
 
 /*
  * action creators
@@ -37,3 +39,13 @@ export function toggleVisibility(rates: Rates): Action<Rates> {
 export function onRatesDataReceived(rates: Rates): Action<Rates> {
 	return { type: ON_DATA_RECEIVED, payload: rates };
 }
+
+export function setError(error: Error): Action<Error> {
+	return { type: ERROR, payload: error }
+}
+
+// Action that follows an error, since it is complicated to handle different data set
+export function reset(): Action<null> {
+	console.log('preso resssseett');
+	return { type: RESET, payload: null }
+};

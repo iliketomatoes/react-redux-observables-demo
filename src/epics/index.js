@@ -5,10 +5,10 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
-import { FETCH_RATES, GET_CURRENT_RATES, SET_DATE } from '../actions';
-import { onRatesDataReceived, fetchRates, setInitialDate } from '../actions';
+import { FETCH_RATES, GET_CURRENT_RATES, SET_DATE, RESET, ERROR } from '../actions';
+import { onRatesDataReceived, fetchRates, setInitialDate, setError, reset } from '../actions';
 import { getRateDateFromIsoString, getIsoStringFromRateDate } from '../utils';
-import type { Currency, Rates, Rate } from '../types';
+import type { Currency, Rates } from '../types';
 
 // epic
 const fetchRateDataEpic = (action$, store) =>
@@ -48,9 +48,8 @@ const fetchRateDataEpic = (action$, store) =>
 				}
 			)
 			.catch(err => {
-				// TODO
 				console.log(err);
-				return Observable.of({ type: 'ERROR', payload: err });
+				return Observable.of(setError(err));
 			});
 	});
 
@@ -73,8 +72,25 @@ const setDateEpic = (action$, store) =>
 		return fetchRates(state.currency);
 	});
 
+const triggerResetOnErrorDismissEpic = (action$, store) =>
+	action$.ofType(ERROR).map(action => {
+		if (action.payload.message === '' && action.payload.status === -1) {
+			return reset();
+		} else {
+			return { type: 'NO_OPERATION', payload: null };
+		}
+	});
+
+const resetEpic = (action$, store) =>
+	action$.ofType(RESET).map(action => {
+		const state = store.getState();
+		return fetchRates(state.currency);
+	});
+
 export const rootEpic = combineEpics(
 	fetchRateDataEpic,
 	getRateDataFromStoreEpic,
-	setDateEpic
+	setDateEpic,
+	triggerResetOnErrorDismissEpic,
+	resetEpic
 );

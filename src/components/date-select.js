@@ -3,11 +3,6 @@ import React from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import type { RateDate } from '../types';
 
-const optionsStyle = {
-	maxWidth: 255,
-	marginRight: 'auto'
-};
-
 class DateSelect extends React.Component {
 	constructor(props: {
 		currentDate: RateDate,
@@ -36,7 +31,7 @@ class DateSelect extends React.Component {
 		return (
 			<div className="date">
 				{this.props.maxDate.year !== 0 &&
-					this.props.currentDate.year != 0
+					this.props.currentDate.year !== 0
 					? <DatePicker
 							floatingLabelText="Current rate exchange date"
 							container="inline"

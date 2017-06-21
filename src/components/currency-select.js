@@ -9,21 +9,12 @@ import './currency-select.css';
 
 class CurrencySelect extends React.Component {
 
-	state: { symbol: string } = {
-		symbol: ''
-	};
-
-	constructor(props: { selected: string, symbol: string, rates: Rates, changeCurrency: (Currency) => void }) {
+	constructor(props: { selected: Currency, rates: Rates, changeCurrency: (Currency) => void }) {
 		super(props);
-
-		this.state = {
-			symbol: props.symbol
-		};
 	}
 
 	onChangeSelect(curr: Currency) {
 		this.props.changeCurrency(curr);
-		this.setState({ symbol: currencies[curr] });
 	}
 
 	render() {
@@ -37,7 +28,7 @@ class CurrencySelect extends React.Component {
 
 		return (
 			<div className="currency">
-				<Chip icon={this.state.symbol} />
+				<Chip currency={this.props.selected} />
 				<div className="currency__info">
 					<SelectField
 						value={this.props.selected}

@@ -28,10 +28,6 @@ class Bar extends React.Component {
 
 	render() {
 		if (this.props.isVisible) {
-			const style = {
-				height: this.props.height
-			};
-
 			return (
 				<div className="bar">
 					<div
