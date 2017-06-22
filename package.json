@@ -11,6 +11,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.0",
     "redux-observable": "^0.14.1",
+    "redux-worker-middleware": "^1.0.0",
     "rxjs": "^5.4.1"
   },
   "devDependencies": {

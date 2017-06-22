@@ -37,7 +37,9 @@ export function toggleVisibility(rates: Rates): Action<Rates> {
 }
 
 export function onRatesDataReceived(rates: Rates): Action<Rates> {
-	return { type: ON_DATA_RECEIVED, payload: rates };
+	return { type: ON_DATA_RECEIVED, payload: rates, meta: {
+		WebWorker: true
+	} };
 }
 
 export function setError(error: Error): Action<Error> {

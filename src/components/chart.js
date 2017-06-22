@@ -10,6 +10,10 @@ function windowResizeHandler() {
 
 class Chart extends React.Component {
 
+	state: {
+		availableWidth: number
+	};
+
 	constructor(props: { rates: Rates, curr: Currency }) {
 		super(props);
 
@@ -37,6 +41,7 @@ class Chart extends React.Component {
 	}
 
 	render() {
+
 		const currentBase = (
 			<div className="chart__current-currency">
 				<div className="chart__current-currency__name">
@@ -45,15 +50,13 @@ class Chart extends React.Component {
 			</div>
 		);
 
-		console.log(this.state);
-
-		// if (this.state.availableWidth)
-
 		return (
 			<div className="chart-container">
 				<div className="chart">
-					{this.props.rates.map((rate, index) =>
-						<div className="chart__bar" key={index}>
+					{this.props.rates.map((rate, index) => {
+
+						if(rate.isVisible) {
+						return <div className="chart__bar" key={index}>
 							<Bar
 								curr={rate.id}
 								value={rate.value}
@@ -62,7 +65,10 @@ class Chart extends React.Component {
 								barIndex={index}
 								width={this.getNormalizedWidth(rate.value)}
 							/>
-						</div>
+						</div> } else {
+							return null;
+						}
+					}
 					)}
 				</div>
 			</div>

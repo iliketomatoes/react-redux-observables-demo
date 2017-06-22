@@ -65,7 +65,6 @@ class Home extends React.Component {
 				</div>
 
 				<Chart rates={this.props.rates} curr={this.props.currency} />
-
 			</div>
 		);
 	}

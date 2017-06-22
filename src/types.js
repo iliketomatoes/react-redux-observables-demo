@@ -28,4 +28,7 @@ export type Error = {
 export interface Action<T> {
     type: string;
 	payload: T;
+	meta?: {
+		WebWorker: boolean
+	}
 };

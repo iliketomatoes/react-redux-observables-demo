@@ -1,6 +1,7 @@
 // @flow
 import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
+import createWorkerMiddleware from 'redux-worker-middleware';
 import { rootReducer } from '../reducers';
 import { rootEpic } from '../epics';
 import {
@@ -36,6 +37,10 @@ export const initialState: {
 	error: initialError
 };
 
+const rCERWorker = new Worker('/workers/roundCurrencyExchangeRateWorker.js');
+
+const workerMiddleware = createWorkerMiddleware(rCERWorker);
+
 // Connect the middleware
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
@@ -44,7 +49,7 @@ export default function configureStore() {
   const store = createStore(
     rootReducer,
 	initialState,
-    applyMiddleware(epicMiddleware)
+    applyMiddleware(workerMiddleware, epicMiddleware)
   );
 
   return store;

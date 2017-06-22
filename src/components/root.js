@@ -24,13 +24,6 @@ class RootComponent extends React.Component {
 		};
 	}
 
-	closeMenu() {
-		const targetElement = document.querySelector(
-			'.mdl-layout__obfuscator.is-visible'
-		);
-		if (targetElement) targetElement.click();
-	}
-
 	openMenu() {
 		this.setState({ isDrawerOpen: true });
 	}
