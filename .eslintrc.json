@@ -24,6 +24,7 @@
         "no-redeclare": 1,
         "no-this-before-super": 1,
         "no-undef": 1,
+        "no-useless-constructor": 0,
         "no-unreachable": 1,
         "no-unused-vars": 1,
         "no-duplicate-imports": 1,

@@ -1,5 +1,5 @@
 // @flow
-export const currencies = {
+export const currencySymbols = {
 	USD: '\u0024',
 	EUR: '\u20AC',
 	AUD: '\u0024',
@@ -42,4 +42,49 @@ export const currencies = {
 	TRL: '\u20ba',
 	TRY: '\u20ba',
 	ZAR: '\u0052'
+};
+
+export const humanReadableCurrencies = {
+	USD: 'U.S. dollar',
+	EUR: 'Euro',
+	AUD: 'Australian dollar',
+	BGN: 'Bulgarian lev',
+	BRL: 'Brazilian real',
+	CAD: 'Canadian dollar',
+	CHF: 'Swiss franc',
+	CNY: 'Chinese yuan',
+	CYP: 'Cypriot pound',
+	CZK: 'Czech koruna',
+	DKK: 'Danish krone',
+	EEK: 'Estonian kroon',
+	GBP: 'Pound sterling',
+	HKD: 'Hong Kong dollar',
+	HRK: 'Croatian kuna',
+	HUF: 'Hungarian forint',
+	IDR: 'Indonesian rupiah',
+	ILS: 'Israeli new shekel',
+	INR: 'Indian rupee',
+	ISK: 'Icelandic króna',
+	JPY: 'Japanese yen',
+	KRW: 'South Korean won',
+	LTL: 'Lithuanian litas',
+	LVL: 'Latvian lats',
+	MXN: 'Mexican peso',
+	MYR: 'Malaysian ringgit',
+	MTL: 'Maltese lira',
+	NOK: 'Norwegian krone',
+	NZD: 'New Zealand dollar',
+	PHP: 'Philippine peso',
+	PLN: 'Polish złoty',
+	ROL: 'Romanian leu',
+	RON: 'Romanian new leu',
+	RUB: 'Russian ruble',
+	SEK: 'Swedish krona',
+	SIT: 'Slovenian tolar',
+	SKK: 'Slovak Koruna',
+	SGD: 'Singapore dollar',
+	THB: 'Thai baht',
+	TRL: 'Turkish (old) lira',
+	TRY: 'Turkish lira',
+	ZAR: 'South African rand'
 };

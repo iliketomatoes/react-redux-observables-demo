@@ -1,7 +1,7 @@
 // @flow
-import { currencies } from './currencies';
+import { currencySymbols } from './currencies';
 
-export type Currency = $Keys<typeof currencies>;
+export type Currency = $Keys<typeof currencySymbols>;
 
 export type Rates = Array<Rate>;
 

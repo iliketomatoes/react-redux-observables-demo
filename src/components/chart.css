@@ -1,13 +1,17 @@
+.chart-container {
+  display: grid;
+  padding: 0 16px;
+  grid-template-columns: 1fr;
+}
+
 .chart {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-end;
-  height: 700px;
-  position: relative;
+  margin: 16px 0 0;
 }
 
 .chart__bar {
-  flex: 0 1 auto;
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .chart__current-currency {

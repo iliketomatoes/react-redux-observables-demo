@@ -1,28 +1,56 @@
 .bar {
-  padding: 0 3px;
-}
-
-.bar__column {
-    --border: 1px solid #80D8FF;
-  background: #c2e6ed;
-  transition: all;
-  transition-duration: 300ms;
-  height: 0;
-  opacity: 0;
-  border-top: var(--border);
-  border-right: var(--border);
-  border-left: var(--border);
+  display: flex;
+  height: 24px;
 }
 
 .bar__desc {
-  margin-top: 4px;
-  writing-mode: vertical-rl;
-  text-orientation: sideways-right;
-  height: 100px;
+  --border: 1px solid transparent;
+  width: 64px;
+  height: 24px;
+  padding: 3px;
+  display: flex;
+  border-top: var(--border);
+  border-left: var(--border);
+  border-bottom: var(--border);
+  align-items: baseline;
 }
 
 .bar__desc--secondary {
-  margin-top: 3px;
+  margin-left: 3px;
   font-size: 11px;
   color: rgba(0,0,0,.54);
+}
+
+.bar__column {
+  --border: 1px solid #80D8FF;
+  background: #c2e6ed;
+  transition: all;
+  transition-duration: 300ms;
+  height: 24px;
+  opacity: 0;
+  border-top: var(--border);
+  border-right: var(--border);
+  border-bottom: var(--border);
+  transition: all 200ms;
+}
+
+.bar__caption {
+  align-self: center;
+  padding-left: 3px;
+  font-size: 14px;
+  width: 45px;
+  color: rgba(0,0,0,.54);
+}
+
+/* hover state */
+
+.bar:hover .bar__column {
+  background: #80D8FF;
+}
+
+.bar:hover .bar__desc {
+  --border-hover: 1px solid #80D8FF;
+  border-top: var(--border-hover);
+  border-left: var(--border-hover);
+  border-bottom: var(--border-hover);
 }

@@ -4,7 +4,7 @@ import type { Rates, Currency } from '../types';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Chip from './chip';
-import { currencies } from '../currencies';
+import { currencySymbols, humanReadableCurrencies } from '../currencies';
 import './currency-select.css';
 
 class CurrencySelect extends React.Component {
@@ -22,7 +22,7 @@ class CurrencySelect extends React.Component {
 			<MenuItem
 				key={index + 1}
 				value={rate.id}
-				primaryText={`${currencies[rate.id]} ${rate.id}`}
+				primaryText={`${currencySymbols[rate.id]} ${humanReadableCurrencies[rate.id]}`}
 			/>
 		);
 
@@ -40,7 +40,7 @@ class CurrencySelect extends React.Component {
 						<MenuItem
 							key={0}
 							value={this.props.selected}
-							primaryText={`${this.props.selected}`}
+							primaryText={humanReadableCurrencies[this.props.selected]}
 						/>
 						{items}
 					</SelectField>

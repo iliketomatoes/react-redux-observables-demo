@@ -1,40 +1,70 @@
 import React from 'react';
 import Bar from '../components/bar';
-import { currencies } from '../currencies';
+import { currencySymbols } from '../currencies';
 import type { Currency, Rates } from '../types';
 import './chart.css';
 
+function windowResizeHandler() {
+	console.log(arguments);
+}
+
 class Chart extends React.Component {
+
 	constructor(props: { rates: Rates, curr: Currency }) {
 		super(props);
+
+		this.state = {
+			availableWidth: 0
+		};
 	}
 
-	getNormalizedHeight(val: number): number {
-		const height = val * 20;
-		return height < 500 ? height : 500;
+	getNormalizedWidth(val: number): number {
+		const width = val * 20;
+		return width < 500 ? width : 500;
+	}
+
+	componentDidMount() {
+		const container = document.querySelector('.chart');
+		const availableWidth = container.offsetWidth;
+		console.log(availableWidth);
+		this.setState({ availableWidth });
+		window.addEventListener('resize', windowResizeHandler);
+	}
+
+	componentWillUnmount() {
+		console.log('grafico smontato');
+		window.removeEventListener('resize', windowResizeHandler);
 	}
 
 	render() {
-		return (
-
-			<div className="chart">
-				<div className="chart__current-currency">
+		const currentBase = (
+			<div className="chart__current-currency">
 				<div className="chart__current-currency__name">
-				1 {this.props.curr} {currencies[this.props.curr]}
+					1 {this.props.curr} {currencySymbols[this.props.curr]}
 				</div>
-				</div>
+			</div>
+		);
+
+		console.log(this.state);
+
+		// if (this.state.availableWidth)
+
+		return (
+			<div className="chart-container">
+				<div className="chart">
 					{this.props.rates.map((rate, index) =>
 						<div className="chart__bar" key={index}>
 							<Bar
 								curr={rate.id}
-								val={rate.value}
-								symbol={currencies[rate.id]}
+								value={rate.value}
+								symbol={currencySymbols[rate.id]}
 								isVisible={rate.isVisible}
 								barIndex={index}
-								height={this.getNormalizedHeight(rate.value)}
+								width={this.getNormalizedWidth(rate.value)}
 							/>
 						</div>
 					)}
+				</div>
 			</div>
 		);
 	}

@@ -8,6 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+import { currencySymbols, humanReadableCurrencies } from '../currencies';
 import './visible-currencies.css';
 import type { Currency, Rates } from '../types';
 
@@ -58,7 +59,7 @@ class VisibleCurrencies extends React.Component {
 					key={i}
 					checkedIcon={<Visibility />}
 					uncheckedIcon={<VisibilityOff />}
-					label={rate.id}
+					label={`${currencySymbols[rate.id]} ${humanReadableCurrencies[rate.id]}`}
 					style={styles.checkbox}
 					defaultChecked={rate.isVisible}
 					onCheck={(ev, isChecked) => this.toggleHandler(rate.id)}
