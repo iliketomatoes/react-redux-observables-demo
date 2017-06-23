@@ -7,11 +7,14 @@ import type { Currency, Rates, RateDate, Action, Error } from '../types';
 export const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 export const FETCH_RATES = 'FETCH_RATES';
 export const ON_DATA_RECEIVED = 'ON_DATA_RECEIVED';
+export const ON_DATA_ROUNDED = 'ON_DATA_ROUNDED';
 export const SET_DATE = 'SET_DATE';
 export const SET_INITIAL_DATE = 'SET_INITIAL_DATE';
 export const GET_CURRENT_RATES = 'GET_CURRENT_RATES';
 export const ERROR = 'ERROR';
 export const RESET = 'RESET';
+export const COMPUTE_STATISTICS = 'COMPUTE_STATISTICS';
+export const STATISTICS_COMPUTED = 'STATISTICS_COMPUTED';
 
 /*
  * action creators
@@ -39,7 +42,19 @@ export function toggleVisibility(rates: Rates): Action<Rates> {
 export function onRatesDataReceived(rates: Rates): Action<Rates> {
 	return { type: ON_DATA_RECEIVED, payload: rates, meta: {
 		WebWorker: true
-	} };
+	}};
+}
+
+export function onRatesDataRounded(rates: Rates): Action<Rates> {
+	return { type: ON_DATA_ROUNDED, payload: rates, meta: {
+		WebWorker: true
+	}};
+}
+
+export function computeStatistics(rates: Rates): Action<Rates> {
+	return { type: COMPUTE_STATISTICS, payload: rates, meta: {
+		WebWorker: true
+	}};
 }
 
 export function setError(error: Error): Action<Error> {

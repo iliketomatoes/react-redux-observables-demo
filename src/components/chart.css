@@ -1,5 +1,6 @@
 .chart-container {
   display: grid;
+  margin: 16px 0 32px;
   padding: 0 16px;
   grid-template-columns: 1fr;
 }

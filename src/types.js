@@ -22,6 +22,13 @@ export type Error = {
 	status: number
 };
 
+export type Statistics = {
+	max: Rate,
+	min: Rate,
+	mean: number,
+	standardDeviation: number
+};
+
 /*
  * Interface to be used for any Action
  */

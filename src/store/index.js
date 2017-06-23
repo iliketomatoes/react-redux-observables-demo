@@ -9,9 +9,10 @@ import {
 	initialCurrency,
 	initialRateDate,
 	initialLoadState,
-	initialError
+	initialError,
+	initialStatistics
 } from './initial-state';
-import type { Currency, Rates, RateDate, Error } from '../types';
+import type { Currency, Rates, RateDate, Error, Statistics } from '../types';
 
 // Hot module reloading
 if (module.hot) {
@@ -27,19 +28,21 @@ export const initialState: {
 	rates: Rates,
 	rateDate: RateDate,
 	latestDateAvailable: RateDate,
-	error: Error
+	error: Error,
+	statistics: Statistics
 } = {
 	currency: initialCurrency,
 	loadState: initialLoadState,
 	rates: initialRates,
 	rateDate: initialRateDate,
 	latestDateAvailable: initialRateDate,
-	error: initialError
+	error: initialError,
+	statistics: initialStatistics
 };
 
-const rCERWorker = new Worker('/workers/roundCurrencyExchangeRateWorker.js');
 
-const workerMiddleware = createWorkerMiddleware(rCERWorker);
+const statsWorker = new Worker('/workers/statsWorker.js');
+const workerMiddleware = createWorkerMiddleware(statsWorker);
 
 // Connect the middleware
 const epicMiddleware = createEpicMiddleware(rootEpic);
@@ -49,7 +52,7 @@ export default function configureStore() {
   const store = createStore(
     rootReducer,
 	initialState,
-    applyMiddleware(workerMiddleware, epicMiddleware)
+    applyMiddleware(epicMiddleware, workerMiddleware)
   );
 
   return store;

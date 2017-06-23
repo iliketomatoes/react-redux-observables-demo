@@ -5,6 +5,9 @@ import {
 	FETCH_RATES,
 	GET_CURRENT_RATES,
 	ON_DATA_RECEIVED,
+	STATISTICS_COMPUTED,
+	COMPUTE_STATISTICS,
+	ON_DATA_ROUNDED,
 	SET_INITIAL_DATE,
 	SET_DATE,
 	RESET,
@@ -15,9 +18,17 @@ import {
 	initialRateDate,
 	initialLoadState,
 	initialCurrency,
-	initialError
+	initialError,
+	initialStatistics
 } from '../store/initial-state';
-import type { Currency, Rates, RateDate, Action, Error } from '../types';
+import type {
+	Currency,
+	Rates,
+	RateDate,
+	Action,
+	Error,
+	Statistics
+} from '../types';
 
 export function loadState(
 	state: boolean = initialLoadState,
@@ -26,7 +37,7 @@ export function loadState(
 	switch (action.type) {
 		case FETCH_RATES:
 			return true;
-		case ON_DATA_RECEIVED:
+		case ON_DATA_ROUNDED:
 			return false;
 		default:
 			return state;
@@ -54,18 +65,10 @@ export function rates(
 	switch (action.type) {
 		case GET_CURRENT_RATES:
 			return state;
-		case ON_DATA_RECEIVED:
-			const rates = action.payload.map(rate => {
-				const oldRate = state.find(r => r.id === rate.id);
-				return {
-					...rate,
-					isVisible: oldRate ? oldRate.isVisible : true
-				};
-			});
-			return rates;
+		case ON_DATA_ROUNDED:
+			return action.payload;
 		case TOGGLE_VISIBILITY:
 			const targetRate = action.payload[0];
-
 			return state.map(
 				rate =>
 					rate.id === targetRate.id
@@ -83,7 +86,7 @@ export function rateDate(
 ): RateDate {
 	switch (action.type) {
 		case RESET:
-			return Object.assign({},initialRateDate);
+			return Object.assign({}, initialRateDate);
 		case SET_DATE:
 		case SET_INITIAL_DATE:
 			return action.payload;
@@ -98,7 +101,7 @@ export function latestDateAvailable(
 ): RateDate {
 	switch (action.type) {
 		case RESET:
-			return Object.assign({},initialRateDate);
+			return Object.assign({}, initialRateDate);
 		case SET_INITIAL_DATE:
 			return action.payload;
 		default:
@@ -118,11 +121,25 @@ export function showHideError(
 	}
 }
 
+export function statistics(
+	state: Statistics = initialStatistics,
+	action: Action<Statistics>
+): Statistics {
+	switch (action.type) {
+		case STATISTICS_COMPUTED:
+			console.log(action);
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
 export const rootReducer = combineReducers({
 	currency,
 	loadState,
 	rates,
 	rateDate,
 	latestDateAvailable,
-	error: showHideError
+	error: showHideError,
+	statistics
 });

@@ -11,14 +11,16 @@ function windowResizeHandler() {
 class Chart extends React.Component {
 
 	state: {
-		availableWidth: number
+		availableWidth: number,
+		magnitude: number
 	};
 
 	constructor(props: { rates: Rates, curr: Currency }) {
 		super(props);
 
 		this.state = {
-			availableWidth: 0
+			availableWidth: 0,
+			magnitude: 0
 		};
 	}
 
@@ -33,6 +35,12 @@ class Chart extends React.Component {
 		console.log(availableWidth);
 		this.setState({ availableWidth });
 		window.addEventListener('resize', windowResizeHandler);
+
+		setTimeout(() => {
+			this.setState({
+				magnitude: 1
+			});
+		}, 200);
 	}
 
 	componentWillUnmount() {
@@ -63,7 +71,7 @@ class Chart extends React.Component {
 								symbol={currencySymbols[rate.id]}
 								isVisible={rate.isVisible}
 								barIndex={index}
-								width={this.getNormalizedWidth(rate.value)}
+								width={this.getNormalizedWidth(rate.value) * this.state.magnitude || 0}
 							/>
 						</div> } else {
 							return null;

@@ -18,16 +18,16 @@ class Bar extends React.Component {
 		super(props);
 
 		this.state = {
-			opacity: 0
+			opacity: 1
 		};
 	}
 
 	componentDidMount() {
-		setTimeout(() => {
+		/*setTimeout(() => {
 			this.setState({
 				opacity: 1
 			});
-		}, 100);
+		}, 100);*/
 	}
 
 	render() {
