@@ -13,8 +13,14 @@ export const initialError: Error = {
 	message: ''
 };
 export const initialStatistics: Statistics = {
-	max: undefined,
-	min: undefined,
+	max: {
+		id: '',
+		value: 0
+	},
+	min: {
+		id: '',
+		value: 0
+	},
 	mean: 0,
 	standardDeviation: 0
 };

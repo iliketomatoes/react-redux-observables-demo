@@ -127,7 +127,6 @@ export function statistics(
 ): Statistics {
 	switch (action.type) {
 		case STATISTICS_COMPUTED:
-			console.log(action);
 			return action.payload;
 		default:
 			return state;

@@ -9,11 +9,11 @@ import {
 	setDate,
 	toggleVisibility
 } from '../actions';
-import Chart from '../components/chart';
+import Chart from './chart';
 import DateSelect from '../components/date-select';
 import CurrencySelect from '../components/currency-select';
 import VisibleCurrencies from '../components/visible-currencies';
-import type { Currency, Rates, RateDate } from '../types';
+import type { Currency, Rates, RateDate, Statistics } from '../types';
 import './home.css';
 
 class Home extends React.Component {
@@ -26,6 +26,7 @@ class Home extends React.Component {
 		rates: Rates,
 		rateDate: RateDate,
 		latestDateAvailable: RateDate,
+		statistics: Statistics,
 		toggleVisibility: Rates => void,
 		loadCurrencyData: () => void,
 		changeCurrency: Currency => void,
@@ -41,7 +42,7 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="grid">
+				<div className="grid home-commands">
 					<div>
 						<CurrencySelect
 							selected={this.props.currency}
@@ -64,7 +65,7 @@ class Home extends React.Component {
 					</div>
 				</div>
 
-				<Chart rates={this.props.rates} curr={this.props.currency} />
+				<Chart />
 			</div>
 		);
 	}
@@ -93,7 +94,8 @@ const mapStateToProps = (state: typeof initialState) => {
 		loadState: state.loadState,
 		rates: state.rates,
 		rateDate: state.rateDate,
-		latestDateAvailable: state.latestDateAvailable
+		latestDateAvailable: state.latestDateAvailable,
+		statistics: state.statistics
 	};
 };
 

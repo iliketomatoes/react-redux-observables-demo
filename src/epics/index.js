@@ -49,7 +49,8 @@ const fetchRateDataEpic = (action$, store) =>
 					const rates: Array<Rates> = Object.entries(
 						response.rates
 					).map(rate => {
-						const oldRate = state.rates.find(r => r.id === rate.id);
+						const oldRate = state.rates.find(r => r.id === rate[0]);
+
 						return {
 							id: rate[0],
 							value: rate[1],

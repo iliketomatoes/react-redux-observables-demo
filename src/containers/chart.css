@@ -1,0 +1,22 @@
+.chart-container {
+  display: flex;
+  margin: 32px 0;
+  padding: 0 16px;
+}
+
+.chart-info {
+  flex-grow: 1;
+  padding-left: 16px;
+}
+
+.chart {
+  border: 1px solid rgb(224, 224, 224);
+  padding: 20px;
+  width: 70%;
+}
+
+.chart__bar {
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+}

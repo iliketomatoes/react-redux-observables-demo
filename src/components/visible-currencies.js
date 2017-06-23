@@ -73,7 +73,7 @@ class VisibleCurrencies extends React.Component {
 		return (
 			<div className="visible-currencies">
 				<div className="visible-currencies__label">
-					Visible currencies
+					Nº of compared currencies
 				</div>
 				<div className="visible-currencies__amount">
 					<span>{visibleRates}</span>
