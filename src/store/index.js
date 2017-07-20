@@ -41,7 +41,7 @@ export const initialState: {
 };
 
 
-const statsWorker = new Worker('/workers/statsWorker.js');
+const statsWorker = new Worker('workers/statsWorker.js');
 const workerMiddleware = createWorkerMiddleware(statsWorker);
 
 // Connect the middleware

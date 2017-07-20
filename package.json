@@ -1,7 +1,8 @@
 {
   "name": "create_react_app_test",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage" : "https://iliketomatoes.github.io/react-redux-observables-demo/build",
   "dependencies": {
     "material-ui": "^0.18.3",
     "react": "^15.6.1",
