@@ -34,7 +34,7 @@ class RootComponent extends React.Component {
 
 	render() {
 		return (
-			<Router>
+			<Router basename="react-redux-observables-demo/build/">
 				<div className="mdl-layout mdl-js-layout mdl-layout--no-desktop-drawer-button">
 					<AppBar
 						title={this.props.appName}
