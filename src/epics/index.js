@@ -37,7 +37,7 @@ const fetchRateDataEpic = (action$, store) =>
 			: getIsoStringFromRateDate(state.rateDate);
 
 		return ajax
-			.getJSON(`http://api.fixer.io/${date}?base=${action.payload}`)
+			.getJSON(`https://api.fixer.io/${date}?base=${action.payload}`)
 			.mergeMap(
 				(response: {
 					base: Currency,
